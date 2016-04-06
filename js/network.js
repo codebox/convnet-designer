@@ -63,7 +63,7 @@ function buildNetwork() {
             return this;
         },
 
-        withPooling : function(poolHeight, poolWidth, strideWidth, strideHeight) {
+        withPooling : function(poolWidth, poolHeight, strideWidth, strideHeight) {
             var previousLayer = getPreviousLayer(),
                 wn = (previousLayer.w - poolWidth),
                 w  = 1 + wn / strideWidth,
@@ -78,7 +78,7 @@ function buildNetwork() {
                 throw new Error(["Bad strideHeight value:", strideHeight, "must be a factor of", hn].join(' '));
             }
 
-            addLayer(h, w, previousLayer.d, 0);
+            addLayer(w, h, previousLayer.d, 0);
 
             return this;
         },
