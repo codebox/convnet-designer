@@ -22,6 +22,7 @@
 
     <script type="text/html" id="inputLayer">
         <div class="layer inputLayer">
+            <span class="layerLabel">Input</span>
             <span class="inputBox">
                 <label for="inputLayerWidth<%= id %>">Width</label>
                 <input class="inputWidth" type="number" id="inputLayerWidth<%= id %>" min="1"/>
@@ -39,6 +40,7 @@
 
     <script type="text/html" id="convLayer">
         <div class="layer convLayer">
+            <span class="layerLabel">Convolution</span>
             <span class="inputBox">
                 <label for="convLayerPatchSize<%= id %>">Patch Size</label>
                 <input class="convPathSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
@@ -56,12 +58,13 @@
 
     <script type="text/html" id="reluLayer">
         <div class="layer reluLayer noInputs">
-            RELU Layer
+            <span class="layerLabel">RELU</span>
         </div>
     </script>
 
     <script type="text/html" id="poolLayer">
         <div class="layer poolLayer">
+            <span class="layerLabel">Pool</span>
             <span class="inputBox">
                 <label for="poolLayerSize<%= id %>">Pool Size</label>
                 <input class="poolSize" type="number" id="poolLayerSize<%= id %>" min="1"/>
@@ -75,6 +78,7 @@
 
     <script type="text/html" id="fcLayer">
         <div class="layer fcLayer">
+            <span class="layerLabel">Fully Connected</span>
             <span class="inputBox">
                 <label for="fcLayerWidth<%= id %>">Width</label>
                 <input class="fcWidth" type="number" id="fcLayerWidth<%= id %>" min="1"/>
@@ -92,6 +96,7 @@
 
     <script type="text/html" id="outputLayer">
         <div class="layer outputLayer">
+            <span class="layerLabel">Output</span>
             <span class="inputBox">
                 <label for="outputLayerCount<%= id %>">Class Count</label>
                 <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>

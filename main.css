@@ -1,8 +1,21 @@
 canvas {
     border: 1px solid black;
 }
+input {
+    border: 1px solid grey;
+    width: 50px;
+}
 input[readonly] {
-    background-color: grey;
+    border: 1px solid white;
+}
+.inputBox{
+    display: inline-block;
+    width: 130px;
+}
+.inputBox label {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
 }
 
 /* button states */
@@ -23,4 +36,19 @@ input[readonly] {
 }
 .stateNotEditable.noInputs button.layerEdit {
     display: none;
+}
+
+.layer{
+    font-size: 12px;
+    font-family: sans-serif;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.layerLabel {
+    display: inline-block;
+    font-weight: bold;
+    width: 100px;
 }

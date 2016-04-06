@@ -13,26 +13,24 @@ var diagram = (function(){
         LAYER_SPACING = 40,
         ANGLE = Math.PI / 4; // 45 degrees
 
-    function drawLayer(layer, xOffset) {
+    function drawLayer(layer, xOffset, scale) {
         ctx.save();
-
 
         ctx.strokeStyle = BLACK;
         ctx.translate(xOffset, canvas.height / 2);
 
-
-        var backEdgeXOffset = layer.w * Math.cos(ANGLE) /2;
-        var backEdgeYOffset = layer.w * Math.sin(ANGLE) /2;
+        var backEdgeXOffset = scale * layer.w * Math.cos(ANGLE) /2;
+        var backEdgeYOffset = scale * layer.w * Math.sin(ANGLE) /2;
 
         var x0 = -backEdgeXOffset/2,
-            x1 = layer.d - backEdgeXOffset/2,
+            x1 = scale * layer.d - backEdgeXOffset/2,
             x2 = backEdgeXOffset/2,
-            x3 = backEdgeXOffset/2 + layer.d,
+            x3 = backEdgeXOffset/2 + scale * layer.d,
 
-            y0 = -layer.h/2 - backEdgeYOffset/2,
-            y1 = -layer.h/2 + backEdgeYOffset/2,
-            y2 =  layer.h/2 - backEdgeYOffset/2,
-            y3 =  layer.h/2 + backEdgeYOffset/2;
+            y0 = -scale * layer.h/2 - backEdgeYOffset/2,
+            y1 = -scale * layer.h/2 + backEdgeYOffset/2,
+            y2 =  scale * layer.h/2 - backEdgeYOffset/2,
+            y3 =  scale * layer.h/2 + backEdgeYOffset/2;
 
 
         function drawQuad(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y, color) {
@@ -69,19 +67,22 @@ var diagram = (function(){
 
     return {
         drawLayers : function(layers) {
-            var maxH = Math.max.apply(this, layers.map(function(layer){
-                    return layer.h;
-                })),
-                maxW = Math.max.apply(this, layers.map(function(layer){
-                    return layer.w;
-                })),
-                hScale = canvas.height * H_FRACTION / maxH;
+            function maxProp(arr, propName) {
+                return Math.max.apply(this, arr.map(function(o){
+                    return o[propName];
+                }));
+            }
+            var maxH = maxProp(layers, 'h'),
+                maxW = maxProp(layers, 'w') * 2,
+                hScale = 0.8 * canvas.height / maxH,
+                wScale = 0.8 * canvas.width / maxW,
+                scale = Math.min(hScale, wScale);
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             var xOffset = LAYER_SPACING * 2;
             layers.forEach(function(layer, i){
-                drawLayer(layer, xOffset);
+                drawLayer(layer, xOffset, scale);
                 xOffset += LAYER_SPACING + layer.d;
             });
         }
