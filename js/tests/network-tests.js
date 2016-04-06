@@ -50,6 +50,8 @@ describe("network", function() {
             {h:1,   w:1,   d:10, weights:32*32*6*10}
         ]);
 
+        expect(net.getParameterCount()).toBe(3*3*3*6 + 64*64*6*32*32*6 + 32*32*6*10);
+        expect(net.getMemoryRequirement()).toBe(((128*128*3) + (128*128*6) + (128*128*6) + (64*64*6) + (32*32*6) + 10) * 4);
     });
     it("VGGNet", function() {
         // validated against http://cs231n.github.io/convolutional-networks/#case
@@ -77,28 +79,32 @@ describe("network", function() {
             .withOutputLayer(1000);
 
         checkNetwork([
-            {h:224, w:224, d:3,   weights:0},
-            {h:224, w:224, d:64,  weights:(3*3*3)*64},
-            {h:224, w:224, d:64,  weights:(3*3*64)*64},
-            {h:112, w:112, d:64,  weights:0},
-            {h:112, w:112, d:128, weights:(3*3*64)*128},
-            {h:112, w:112, d:128, weights:(3*3*128)*128},
-            {h:56,  w:56,  d:128, weights:0},
-            {h:56,  w:56,  d:256, weights:(3*3*128)*256},
-            {h:56,  w:56,  d:256, weights:(3*3*256)*256},
-            {h:56,  w:56,  d:256, weights:(3*3*256)*256},
-            {h:28,  w:28,  d:256, weights:0},
-            {h:28,  w:28,  d:512, weights:(3*3*256)*512},
-            {h:28,  w:28,  d:512, weights:(3*3*512)*512},
-            {h:28,  w:28,  d:512, weights:(3*3*512)*512},
-            {h:14,  w:14,  d:512, weights:0},
-            {h:14, w:14,  d:512,  weights:(3*3*512)*512},
-            {h:14, w:14,  d:512,  weights:(3*3*512)*512},
-            {h:14, w:14,  d:512,  weights:(3*3*512)*512},
-            {h:7,  w:7,   d:512,  weights:0},
-            {h:1, w:1, d:4096,    weights:7*7*512*4096},
-            {h:1, w:1, d:4096,    weights:4096*4096},
-            {h:1, w:1, d:1000,    weights:4096 * 1000}
+            {h:224, w:224, d:3,    weights:0},
+            {h:224, w:224, d:64,   weights:(3*3*3)*64},
+            {h:224, w:224, d:64,   weights:(3*3*64)*64},
+            {h:112, w:112, d:64,   weights:0},
+            {h:112, w:112, d:128,  weights:(3*3*64)*128},
+            {h:112, w:112, d:128,  weights:(3*3*128)*128},
+            {h:56,  w:56,  d:128,  weights:0},
+            {h:56,  w:56,  d:256,  weights:(3*3*128)*256},
+            {h:56,  w:56,  d:256,  weights:(3*3*256)*256},
+            {h:56,  w:56,  d:256,  weights:(3*3*256)*256},
+            {h:28,  w:28,  d:256,  weights:0},
+            {h:28,  w:28,  d:512,  weights:(3*3*256)*512},
+            {h:28,  w:28,  d:512,  weights:(3*3*512)*512},
+            {h:28,  w:28,  d:512,  weights:(3*3*512)*512},
+            {h:14,  w:14,  d:512,  weights:0},
+            {h:14,  w:14,  d:512,  weights:(3*3*512)*512},
+            {h:14,  w:14,  d:512,  weights:(3*3*512)*512},
+            {h:14,  w:14,  d:512,  weights:(3*3*512)*512},
+            {h:7,   w:7,   d:512,  weights:0},
+            {h:1,   w:1,   d:4096, weights:7*7*512*4096},
+            {h:1,   w:1,   d:4096, weights:4096*4096},
+            {h:1,   w:1,   d:1000, weights:4096*1000}
         ]);
+
+        expect(net.getParameterCount()).toBe(138344128);
+        //expect(net.getMemoryRequirement()).toBe(60950432);
+
     });
 });

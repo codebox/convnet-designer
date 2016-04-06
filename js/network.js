@@ -1,7 +1,8 @@
-function buildNetwork(inputLayer) {
+function buildNetwork() {
     "use strict";
 
-    var layers = [];
+    var layers = [],
+        BYTES_PER_VALUE = 4;
 
     function buildLayer(w, h, d, weights) {
         return {
@@ -98,6 +99,18 @@ function buildNetwork(inputLayer) {
             return layers.map(function(layer){
                 return buildLayer(layer.w, layer.h, layer.d, layer.weights);
             });
+        },
+
+        getParameterCount : function() {
+            return layers.reduce(function(total,layer){
+                return layer.weights + total;
+            }, 0);
+        },
+
+        getMemoryRequirement : function() {
+            return layers.reduce(function(total, layer){
+                return (layer.w * layer.h * layer.d) + total;
+            }, 0) * BYTES_PER_VALUE;
         }
     };
 

@@ -1,0 +1,26 @@
+canvas {
+    border: 1px solid black;
+}
+input[readonly] {
+    background-color: grey;
+}
+
+/* button states */
+.stateEditable button.layerOk {
+    display: inline;
+}
+.stateEditable.noInputs button.layerOk {
+    display: none;
+}
+.stateEditable button.layerEdit {
+    display: none;
+}
+.stateNotEditable button.layerOk {
+    display: none;
+}
+.stateNotEditable button.layerEdit {
+    display: inline;
+}
+.stateNotEditable.noInputs button.layerEdit {
+    display: none;
+}

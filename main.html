@@ -3,15 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="js/network.js"></script>
-    <script src="js/main.js"></script>
-    <style>
-        canvas {
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
+    <section id="controls">
+        <div id="layers">
+
+        </div>
+        <button id="addInput">Add Input Layer</button>
+        <button id="addConv">Add Convolution Layer</button>
+        <button id="addRelu">Add RELU Layer</button>
+        <button id="addPool">Add Pool Layer</button>
+        <button id="addFc">Add Fully Connected Layer</button>
+        <button id="addOutput">Add Output Layer</button>
+    </section>
+
     <canvas id="canvas" width="600" height="400"></canvas>
+
+    <script type="text/html" id="inputLayer">
+        <div class="layer inputLayer">
+            <span class="inputBox">
+                <label for="inputLayerWidth<%= id %>">Width</label>
+                <input class="inputWidth" type="number" id="inputLayerWidth<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="inputLayerHeight<%= id %>">Height</label>
+                <input class="inputHeight" type="number" id="inputLayerHeight<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="inputLayerDepth<%= id %>">Depth</label>
+                <input class="inputDepth" type="number" id="inputLayerDepth<%= id %>" min="1"/>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/html" id="convLayer">
+        <div class="layer convLayer">
+            <span class="inputBox">
+                <label for="convLayerPatchSize<%= id %>">Patch Size</label>
+                <input class="convPathSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="convLayerStride<%= id %>">Stride</label>
+                <input class="convStride" type="number" id="convLayerStride<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="convLayerOutputs<%= id %>">Outputs</label>
+                <input class="convOutputs" type="number" id="convLayerOutputs<%= id %>" min="1"/>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/html" id="reluLayer">
+        <div class="layer reluLayer noInputs">
+            RELU Layer
+        </div>
+    </script>
+
+    <script type="text/html" id="poolLayer">
+        <div class="layer poolLayer">
+            <span class="inputBox">
+                <label for="poolLayerSize<%= id %>">Pool Size</label>
+                <input class="poolSize" type="number" id="poolLayerSize<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="poolLayerStride<%= id %>">Stride</label>
+                <input class="poolStride" type="number" id="poolLayerStride<%= id %>" min="1"/>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/html" id="fcLayer">
+        <div class="layer fcLayer">
+            <span class="inputBox">
+                <label for="fcLayerWidth<%= id %>">Width</label>
+                <input class="fcWidth" type="number" id="fcLayerWidth<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="fcLayerHeight<%= id %>">Height</label>
+                <input class="fcHeight" type="number" id="fcLayerHeight<%= id %>" min="1"/>
+            </span>
+            <span class="inputBox">
+                <label for="fcLayerDepth<%= id %>">Depth</label>
+                <input class="fcDepth" type="number" id="fcLayerDepth<%= id %>" min="1"/>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/html" id="outputLayer">
+        <div class="layer outputLayer">
+            <span class="inputBox">
+                <label for="outputLayerCount<%= id %>">Class Count</label>
+                <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/html" id="buttons">
+        <button class="layerOk"     id="layerOk<%= id %>">OK</button>
+        <button class="layerEdit"   id="layerEdit<%= id %>">Edit</button>
+        <button class="layerDelete" id="layerDelete<%= id %>">Delete</button>
+    </script>
+
+    <script src="js/network.js"></script>
+    <script src="js/diagram.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
 </html>
