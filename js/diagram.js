@@ -16,7 +16,7 @@ var diagram = (function(){
     function drawLayer(layer, xOffset, scale) {
         ctx.save();
 
-        ctx.strokeStyle = BLACK;
+        ctx.strokeStyle = layer.lineColour || BLACK;
         ctx.translate(xOffset, canvas.height / 2);
 
         var backEdgeXOffset = scale * layer.w * Math.cos(ANGLE) /2;
@@ -54,13 +54,13 @@ var diagram = (function(){
         }
 
         // top edge
-        drawQuad(x0, y1, x2, y0, x3, y0,x1, y1, WHITE);
+        drawQuad(x0, y1, x2, y0, x3, y0,x1, y1, layer.topColour || WHITE);
 
         // facing edge
-        drawQuad(x0, y1, x0, y3, x1, y3, x1, y1, GREY2);
+        drawQuad(x0, y1, x0, y3, x1, y3, x1, y1, layer.faceColour ||  GREY2);
 
         // right face
-        drawQuad(x1, y1, x3, y0, x3, y2, x1, y3, GREY1);
+        drawQuad(x1, y1, x3, y0, x3, y2, x1, y3, layer.rightColour || GREY1);
 
         ctx.restore();
     }

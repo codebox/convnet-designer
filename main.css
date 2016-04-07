@@ -10,11 +10,11 @@ input[readonly] {
 }
 .inputBox{
     display: inline-block;
-    width: 130px;
+    width: 120px;
 }
 .inputBox label {
     display: inline-block;
-    width: 70px;
+    width: 50px;
     text-align: right;
 }
 .buttonBox{
@@ -38,7 +38,7 @@ input[readonly] {
 
 .layer.poolLayer{
     border: 1px solid #AD7856;
-    background-color: #F7C29F;
+    background-color: #F7AD83;
 }
 
 .layer.fcLayer{
