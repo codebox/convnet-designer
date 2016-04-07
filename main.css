@@ -17,6 +17,9 @@ input[readonly] {
     width: 70px;
     text-align: right;
 }
+.buttonBox{
+    float: right;
+}
 
 /* button states */
 .stateEditable button.layerOk {
@@ -45,6 +48,9 @@ input[readonly] {
     border-radius: 3px;
     padding: 5px;
     margin: 5px 0;
+    box-sizing: border-box;
+    width: 600px;
+    height: 30px;
 }
 
 .layerLabel {

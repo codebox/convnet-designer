@@ -10,6 +10,5 @@
 * Enable/disable Add Layer buttons appropriately (input can only be at the start, output must be last layer)
 * Validation
 * Improve scaling (layer spacing does not change as number of layers increases)
-* Right-align OK/Edit/Delete buttons
 * Fix fuzzy lines on canvas
 * Generate Tensorflow code

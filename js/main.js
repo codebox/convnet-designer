@@ -1,17 +1,27 @@
 $(function(){
-    var nextLayerId = 1;
-    function updateLayers() {
+    var nextLayerId = 1, layerState = {
+        hasInput : false,
+        hasOutput : false
+    };
+
+    function updateButtonStates() {
+
+    }
+
+    function updateUi() {
         var net = buildNetwork();
         $('#layers').find('.layer').each(function() {
             var $layerPanel = $(this);
 
             $layerPanel[0].updateNet($layerPanel, net);
-        })
+        });
 
         diagram.drawLayers(net.getLayers());
+
+        updateButtonStates();
     }
 
-    function buildAddLayerHandler(id, fnUpdateLayer){
+    function buildAddLayerHandler(id, fnUpdateLayer) {
         return function(){
             var $layerPanel = $(_.template($('#' + id).html())({id:nextLayerId}));
             $layerPanel.append(_.template($('#buttons').html())({id:nextLayerId}));
@@ -22,12 +32,12 @@ $(function(){
             $layerPanel.find('.layerOk').click(function(){
                 $layerPanel.removeClass('stateEditable').addClass('stateNotEditable');
                 $layerPanel.find('input').prop('readonly', true);
-                updateLayers();
+                updateUi();
             });
 
             $layerPanel.find('.layerDelete').click(function(){
                 $layerPanel.remove();
-                updateLayers();
+                updateUi();
             });
 
             $layerPanel.find('.layerEdit').click(function(){
@@ -41,7 +51,7 @@ $(function(){
             nextLayerId++;
 
             if ($layerPanel.hasClass('noInputs')) {
-                updateLayers();
+                updateUi();
             }
         }
     }
