@@ -21,6 +21,36 @@ input[readonly] {
     float: right;
 }
 
+.layer.inputLayer{
+    border: 1px solid #5B6F9C;
+    background-color: #acc6ee;
+}
+
+.layer.convLayer{
+    border: 1px solid #679FAD;
+    background-color: #acdbee;
+}
+
+.layer.reluLayer{
+    border: 1px solid #8C709E;
+    background-color: #d4acee;
+}
+
+.layer.poolLayer{
+    border: 1px solid #AD7856;
+    background-color: #F7C29F;
+}
+
+.layer.fcLayer{
+    border: 1px solid #CDD03F;
+    background-color: #edeeac;
+}
+
+.layer.outputLayer{
+    border: 1px solid #5AAB50;
+    background-color: #b3eeac;
+}
+
 /* button states */
 .stateEditable button.layerOk {
     display: inline;
