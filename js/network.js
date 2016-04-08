@@ -124,6 +124,32 @@ function buildNetwork() {
             return layers.reduce(function(total, layer){
                 return (layer.w * layer.h * layer.d) + total;
             }, 0) * BYTES_PER_VALUE;
+        },
+
+        utils : {
+            calcZeroPadding : function(inputSize, patchSize, stride) {
+                function isEven(n){
+                    return n % 2 === 0;
+                }
+                if (patchSize > inputSize) {
+                    throw new Error('Patch size must not exceed input size');
+                }
+
+                var n = (inputSize - patchSize) % stride;
+                if (n===0) {
+                    return 0;
+                }
+
+                if (isEven(stride)) {
+                    if (isEven(n)) {
+                        return (stride - n) % stride / 2;
+                    } else {
+                        return; // won't fit
+                    }
+                } else {
+                    return (n * (stride - 1) / 2) % stride;
+                }
+            }
         }
     };
 
