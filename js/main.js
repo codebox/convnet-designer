@@ -1,15 +1,39 @@
 $(function(){
-    var nextLayerId = 1, layerState = {
-            hasInput : false,
-            hasOutput : false
-        },
+    var nextLayerId = 1,
         NUMBER_REGEX = /^[1-9][0-9]*$/;
 
-    function updateButtonStates() {
+    var updateButtonStates = (function() {
+        var addInput  = $('#addInput'),
+            addOutput = $('#addOutput'),
+            addOthers = $('#addConv,#addRelu,#addPool,#addFc');
 
-    }
+        return function(){
+            var hasInput  = $('#layers').find('.inputLayer').length,
+                hasOutput = $('#layers').find('.outputLayer').length,
+                editing   = $('#layers').find('.stateEditable').length;
+
+            if (!hasInput) {
+                addInput.prop('disabled', false);
+                addOutput.prop('disabled', true);
+                addOthers.prop('disabled', true);
+            } else if (hasOutput || editing) {
+                addInput.prop('disabled', true);
+                addOutput.prop('disabled', true);
+                addOthers.prop('disabled', true);
+            } else {
+                addInput.prop('disabled', true);
+                addOutput.prop('disabled', false);
+                addOthers.prop('disabled', false);
+            }
+        };
+    }());
 
     function updateUi() {
+        updateDiagram();
+        updateButtonStates();
+    }
+
+    function updateDiagram(){
         var net = buildNetwork();
         $('#layers').find('.layer').each(function() {
             var $layerPanel = $(this);
@@ -18,8 +42,6 @@ $(function(){
         });
 
         diagram.drawLayers(net.getLayers());
-
-        updateButtonStates();
     }
 
     function buildAddLayerHandler(id, fnUpdateLayer) {
@@ -27,8 +49,6 @@ $(function(){
             var $layerPanel = $(_.template($('#' + id).html())({id:nextLayerId}));
             $layerPanel.append(_.template($('#buttons').html())({id:nextLayerId}));
             $('#layers').append($layerPanel);
-
-            $layerPanel.addClass('stateEditable');
 
             $layerPanel.find('.layerOk').click(function(){
                 $layerPanel.removeClass('stateEditable').addClass('stateNotEditable');
@@ -45,14 +65,19 @@ $(function(){
                 $layerPanel.removeClass('stateNotEditable').addClass('stateEditable');
                 $layerPanel.find('input').prop('readonly', false);
                 $layerPanel.find('input').first().focus();
+                updateUi();
             });
 
             $layerPanel[0].updateNet = fnUpdateLayer;
 
             nextLayerId++;
 
-            if ($layerPanel.hasClass('noInputs')) {
-                updateUi();
+            if ($layerPanel.find('input').length === 0) {
+                $layerPanel.find('.layerOk').hide();
+                updateDiagram();
+            } else {
+                $layerPanel.addClass('stateEditable');
+                updateButtonStates();
             }
 
             $layerPanel.find('input').first().focus();

@@ -6,19 +6,21 @@
     <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-    <section id="controls">
-        <div id="layers">
+    <div id="container">
+        <section id="controls">
+            <div id="layers">
 
-        </div>
-        <button id="addInput">Add Input Layer</button>
-        <button id="addConv">Add Convolution Layer</button>
-        <button id="addRelu">Add RELU Layer</button>
-        <button id="addPool">Add Pool Layer</button>
-        <button id="addFc">Add Fully Connected Layer</button>
-        <button id="addOutput">Add Output Layer</button>
-    </section>
+            </div>
+            <button id="addInput">Add Input Layer</button>
+            <button id="addConv" disabled>Add Convolution Layer</button>
+            <button id="addRelu" disabled>Add RELU Layer</button>
+            <button id="addPool" disabled>Add Pool Layer</button>
+            <button id="addFc" disabled>Add Fully Connected Layer</button>
+            <button id="addOutput" disabled>Add Output Layer</button>
+        </section>
 
-    <canvas id="canvas" width="600" height="400"></canvas>
+        <canvas id="canvas" width="600" height="400"></canvas>
+    </div>
 
     <script type="text/html" id="inputLayer">
         <div class="layer inputLayer">
@@ -57,7 +59,7 @@
     </script>
 
     <script type="text/html" id="reluLayer">
-        <div class="layer reluLayer noInputs">
+        <div class="layer reluLayer">
             <span class="layerLabel">RELU</span>
         </div>
     </script>

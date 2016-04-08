@@ -1,3 +1,7 @@
+#container{
+    box-sizing: border-box;
+    width: 600px;
+}
 canvas {
     border: 1px solid black;
 }
@@ -55,9 +59,6 @@ input[readonly] {
 .stateEditable button.layerOk {
     display: inline;
 }
-.stateEditable.noInputs button.layerOk {
-    display: none;
-}
 .stateEditable button.layerEdit {
     display: none;
 }
@@ -67,9 +68,6 @@ input[readonly] {
 .stateNotEditable button.layerEdit {
     display: inline;
 }
-.stateNotEditable.noInputs button.layerEdit {
-    display: none;
-}
 
 .layer{
     font-size: 12px;
@@ -78,9 +76,8 @@ input[readonly] {
     border-radius: 3px;
     padding: 5px;
     margin: 5px 0;
-    box-sizing: border-box;
-    width: 600px;
     height: 30px;
+    box-sizing: border-box;
 }
 
 .layerLabel {
