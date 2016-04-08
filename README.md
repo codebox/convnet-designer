@@ -5,6 +5,7 @@
 ### Function
 * Display/fix memory usage calculation
 * Generate Tensorflow code
+* Prevent deleting Input Layer
 
 ### UI
 * Shade colours in diagram

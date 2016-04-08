@@ -117,6 +117,10 @@ function buildNetwork() {
             return layers;
         },
 
+        getLastLayer : function() {
+            return layers[layers.length-1];
+        },
+
         getParameterCount : function() {
             return layers.reduce(function(total,layer){
                 return layer.weights + total;
@@ -152,6 +156,9 @@ function buildNetwork() {
                 } else {
                     return (n * (stride - 1) / 2) % stride;
                 }
+            },
+            checkZeroPadding : function(inputSize, patchSize, stride, padding) {
+                return
             }
         }
     };

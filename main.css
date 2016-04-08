@@ -12,19 +12,29 @@ input {
 input[readonly] {
     border: 1px solid white;
 }
+.inputBoxes {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.inputBoxesRow {
+    display: flex;
+    flex-direction: row;
+    margin: 2px 0;
+}
 .inputBox{
     display: inline-block;
     width: 120px;
+    white-space: nowrap;
 }
 .inputBox label {
     display: inline-block;
-    width: 50px;
+    width: 60px;
     text-align: right;
 }
-.buttonBox{
-    float: right;
+.buttonBox {
+    width: 100px;
 }
-
 .layer.inputLayer, .layer.inputLayer.stateNotEditable input{
     border: 1px solid #5B6F9C;
     background-color: #acc6ee;
@@ -59,8 +69,8 @@ input[readonly] {
 .stateEditable button.layerOk {
     display: inline;
 }
-.stateEditable button.layerEdit {
-    display: none;
+.stateEditable button.layerEdit, .noInputs button.layerEdit{
+    display: none ! important;
 }
 .stateNotEditable button.layerOk {
     display: none;
@@ -68,7 +78,22 @@ input[readonly] {
 .stateNotEditable button.layerEdit {
     display: inline;
 }
+.stateNotEditable button.layerEdit {
+    display: inline;
+}
 
+#addButtons{
+    display: flex;
+    flex-direction: column;
+}
+.buttonRow{
+    display: flex;
+    flex-direction: row;
+}
+#addButtons button{
+    flex: 1;
+    margin: 2px 5px;
+}
 .layer{
     font-size: 12px;
     font-family: sans-serif;
@@ -78,6 +103,8 @@ input[readonly] {
     margin: 5px 0;
     min-height: 30px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .layerLabel {
@@ -100,6 +127,6 @@ input[readonly] {
 }
 
 .infoBox{
-    text-align: center;
+    justify-content: center;
     margin-top: 4px;
 }

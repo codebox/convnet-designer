@@ -11,12 +11,18 @@
             <div id="layers">
 
             </div>
-            <button id="addInput">Add Input Layer</button>
-            <button id="addConv" disabled>Add Convolution Layer</button>
-            <button id="addRelu" disabled>Add RELU Layer</button>
-            <button id="addPool" disabled>Add Pool Layer</button>
-            <button id="addFc" disabled>Add Fully Connected Layer</button>
-            <button id="addOutput" disabled>Add Output Layer</button>
+            <div id="addButtons">
+                <div class="buttonRow">
+                    <button id="addInput">Add Input Layer</button>
+                    <button id="addConv"   disabled>Add Convolution Layer</button>
+                    <button id="addRelu"   disabled>Add RELU Layer</button>
+                </div>
+                <div class="buttonRow">
+                    <button id="addPool"   disabled>Add Pool Layer</button>
+                    <button id="addFc"     disabled>Add Fully Connected Layer</button>
+                    <button id="addOutput" disabled>Add Output Layer</button>
+                </div>
+            </div>
         </section>
 
         <section id="stats">
@@ -30,45 +36,65 @@
     <script type="text/html" id="inputLayer">
         <div class="layer inputLayer">
             <span class="layerLabel">Input</span>
-            <span class="inputBox">
-                <label for="inputLayerWidth<%= id %>">Width</label>
-                <input class="inputWidth" type="number" id="inputLayerWidth<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="inputLayerHeight<%= id %>">Height</label>
-                <input class="inputHeight" type="number" id="inputLayerHeight<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="inputLayerDepth<%= id %>">Depth</label>
-                <input class="inputDepth" type="number" id="inputLayerDepth<%= id %>" min="1"/>
-            </span>
-            <div class="buttonBox"></div>
+            <div class="inputBoxes">
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="inputLayerWidth<%= id %>">Width</label>
+                        <input class="inputWidth" type="number" id="inputLayerWidth<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="inputLayerHeight<%= id %>">Height</label>
+                        <input class="inputHeight" type="number" id="inputLayerHeight<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="inputLayerDepth<%= id %>">Depth</label>
+                        <input class="inputDepth" type="number" id="inputLayerDepth<%= id %>" min="1"/>
+                    </span>
+                </div>
+            </div>
+            <span class="buttonBox"></span>
         </div>
     </script>
 
     <script type="text/html" id="convLayer">
         <div class="layer convLayer">
             <span class="layerLabel">Convolution</span>
-            <span class="inputBox">
-                <label for="convLayerPatchSize<%= id %>">Patch</label>
-                <input class="convPatchSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="convLayerStride<%= id %>">Stride</label>
-                <input class="convStride" type="number" id="convLayerStride<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="convLayerOutputs<%= id %>">Outputs</label>
-                <input class="convOutputs" type="number" id="convLayerOutputs<%= id %>" min="1"/>
-            </span>
+            <div class="inputBoxes">
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="convLayerPatchSize<%= id %>">Patch</label>
+                        <input class="convPatchSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="convLayerStride<%= id %>">Stride</label>
+                        <input class="convStride" type="number" id="convLayerStride<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="convLayerOutputs<%= id %>">Outputs</label>
+                        <input class="convOutputs" type="number" id="convLayerOutputs<%= id %>" min="1"/>
+                    </span>
+                </div>
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="convLayerWidthPad<%= id %>">Width Pad</label>
+                        <input class="convWidthPad optional" type="number" id="convLayerWidthPad<%= id %>" min="1" placeholder="<Auto>"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="convLayerHeightPad<%= id %>">Height Pad</label>
+                        <input class="convHeightPad optional" type="number" id="convLayerHeightPad<%= id %>" min="1" placeholder="<Auto>"/>
+                    </span>
+                </div>
+
+                <div class="inputBoxesRow infoBox"></div>
+            </div>
             <div class="buttonBox"></div>
-            <div class="infoBox"></div>
         </div>
     </script>
 
     <script type="text/html" id="reluLayer">
-        <div class="layer reluLayer">
+        <div class="layer reluLayer noInputs">
             <span class="layerLabel">RELU</span>
+            <div class="inputBoxes"></div>
             <div class="buttonBox"></div>
         </div>
     </script>
@@ -76,34 +102,42 @@
     <script type="text/html" id="poolLayer">
         <div class="layer poolLayer">
             <span class="layerLabel">Pool</span>
-            <span class="inputBox">
-                <label for="poolLayerSize<%= id %>">Size</label>
-                <input class="poolSize" type="number" id="poolLayerSize<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="poolLayerStride<%= id %>">Stride</label>
-                <input class="poolStride" type="number" id="poolLayerStride<%= id %>" min="1"/>
-            </span>
+            <div class="inputBoxes">
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="poolLayerSize<%= id %>">Size</label>
+                        <input class="poolSize" type="number" id="poolLayerSize<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="poolLayerStride<%= id %>">Stride</label>
+                        <input class="poolStride" type="number" id="poolLayerStride<%= id %>" min="1"/>
+                    </span>
+                </div>
+                <div class="infoBox inputBoxesRow"></div>
+            </div>
             <div class="buttonBox"></div>
-            <div class="infoBox"></div>
         </div>
     </script>
 
     <script type="text/html" id="fcLayer">
         <div class="layer fcLayer">
             <span class="layerLabel">Fully Connected</span>
-            <span class="inputBox">
-                <label for="fcLayerWidth<%= id %>">Width</label>
-                <input class="fcWidth" type="number" id="fcLayerWidth<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="fcLayerHeight<%= id %>">Height</label>
-                <input class="fcHeight" type="number" id="fcLayerHeight<%= id %>" min="1"/>
-            </span>
-            <span class="inputBox">
-                <label for="fcLayerDepth<%= id %>">Depth</label>
-                <input class="fcDepth" type="number" id="fcLayerDepth<%= id %>" min="1"/>
-            </span>
+            <div class="inputBoxes">
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="fcLayerWidth<%= id %>">Width</label>
+                        <input class="fcWidth" type="number" id="fcLayerWidth<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="fcLayerHeight<%= id %>">Height</label>
+                        <input class="fcHeight" type="number" id="fcLayerHeight<%= id %>" min="1"/>
+                    </span>
+                    <span class="inputBox">
+                        <label for="fcLayerDepth<%= id %>">Depth</label>
+                        <input class="fcDepth" type="number" id="fcLayerDepth<%= id %>" min="1"/>
+                    </span>
+                </div>
+            </div>
             <div class="buttonBox"></div>
         </div>
     </script>
@@ -111,10 +145,14 @@
     <script type="text/html" id="outputLayer">
         <div class="layer outputLayer">
             <span class="layerLabel">Output</span>
-            <span class="inputBox">
-                <label for="outputLayerCount<%= id %>">Count</label>
-                <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>
-            </span>
+            <div class="inputBoxes">
+                <div class="inputBoxesRow">
+                    <span class="inputBox">
+                        <label for="outputLayerCount<%= id %>">Count</label>
+                        <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>
+                    </span>
+                </div>
+            </div>
             <div class="buttonBox"></div>
         </div>
     </script>
