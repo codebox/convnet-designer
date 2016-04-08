@@ -48,7 +48,7 @@ $(function(){
     function buildAddLayerHandler(id, fnUpdateLayer) {
         return function(){
             var $layerPanel = $(_.template($('#' + id).html())({id:nextLayerId}));
-            $layerPanel.append(_.template($('#buttons').html())({id:nextLayerId}));
+            $layerPanel.find('.buttonBox').append(_.template($('#buttons').html())({id:nextLayerId}));
             $('#layers').append($layerPanel);
 
             $layerPanel.find('.layerOk').click(function(){
@@ -102,10 +102,31 @@ $(function(){
         net.withInputLayer(w, h, d);
     }));
     $('#addConv').click(buildAddLayerHandler('convLayer', function($layerPanel, net){
-        var s = getNumValue($layerPanel, 'convPathSize'),
+        var s = getNumValue($layerPanel, 'convPatchSize'),
             t = getNumValue($layerPanel, 'convStride'),
             o = getNumValue($layerPanel, 'convOutputs');
-        net.withConvLayer(s, s, t, t, 0, 0, o);
+        var layers = net.getLayers(),
+            prevLayer = layers[layers.length - 1],
+            pw = net.utils.calcZeroPadding(prevLayer.w, s, t),
+            ph = net.utils.calcZeroPadding(prevLayer.h, s, t),
+            infoMsg;
+
+        try {
+            if (pw === undefined) {
+                infoMsg = 'ERROR: the width of the previous layer prohibits the specified patch/stride combination'
+            } else if (ph === undefined) {
+                infoMsg = 'ERROR: the height of the previous layer prohibits the specified patch/stride combination'
+            } else if (pw === 0 && ph === 0) {
+                infoMsg = 'No zero-padding required'
+            } else if (pw === ph) {
+                infoMsg = 'Added zero-padding of size ' + pw;
+            } else {
+                infoMsg = 'Added zero-padding of ' + pw + ' to width and ' + ph + ' to height';
+            }
+        } finally {
+            $layerPanel.find('.infoBox').text(infoMsg);
+        }
+        net.withConvLayer(s, s, t, t, pw, ph, o);
     }));
     $('#addRelu').click(buildAddLayerHandler('reluLayer', function($layerPanel, net){
         net.withRelu();

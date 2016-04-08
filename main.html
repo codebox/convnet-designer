@@ -42,6 +42,7 @@
                 <label for="inputLayerDepth<%= id %>">Depth</label>
                 <input class="inputDepth" type="number" id="inputLayerDepth<%= id %>" min="1"/>
             </span>
+            <div class="buttonBox"></div>
         </div>
     </script>
 
@@ -50,7 +51,7 @@
             <span class="layerLabel">Convolution</span>
             <span class="inputBox">
                 <label for="convLayerPatchSize<%= id %>">Patch</label>
-                <input class="convPathSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
+                <input class="convPatchSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
             </span>
             <span class="inputBox">
                 <label for="convLayerStride<%= id %>">Stride</label>
@@ -60,12 +61,15 @@
                 <label for="convLayerOutputs<%= id %>">Outputs</label>
                 <input class="convOutputs" type="number" id="convLayerOutputs<%= id %>" min="1"/>
             </span>
+            <div class="buttonBox"></div>
+            <div class="infoBox"></div>
         </div>
     </script>
 
     <script type="text/html" id="reluLayer">
         <div class="layer reluLayer">
             <span class="layerLabel">RELU</span>
+            <div class="buttonBox"></div>
         </div>
     </script>
 
@@ -80,6 +84,7 @@
                 <label for="poolLayerStride<%= id %>">Stride</label>
                 <input class="poolStride" type="number" id="poolLayerStride<%= id %>" min="1"/>
             </span>
+            <div class="buttonBox"></div>
         </div>
     </script>
 
@@ -98,6 +103,7 @@
                 <label for="fcLayerDepth<%= id %>">Depth</label>
                 <input class="fcDepth" type="number" id="fcLayerDepth<%= id %>" min="1"/>
             </span>
+            <div class="buttonBox"></div>
         </div>
     </script>
 
@@ -108,15 +114,14 @@
                 <label for="outputLayerCount<%= id %>">Count</label>
                 <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>
             </span>
+            <div class="buttonBox"></div>
         </div>
     </script>
 
     <script type="text/html" id="buttons">
-        <div class="buttonBox">
-            <button class="layerOk"     id="layerOk<%= id %>" disabled>OK</button>
-            <button class="layerEdit"   id="layerEdit<%= id %>">Edit</button>
-            <button class="layerDelete" id="layerDelete<%= id %>">Delete</button>
-        </div>
+        <button class="layerOk"     id="layerOk<%= id %>" disabled>OK</button>
+        <button class="layerEdit"   id="layerEdit<%= id %>">Edit</button>
+        <button class="layerDelete" id="layerDelete<%= id %>">Delete</button>
     </script>
 
     <script src="js/network.js"></script>

@@ -4,7 +4,7 @@
 
 ### Function
 * Display/fix memory usage calculation
-* Calculate zero-padding values for convolutions
+* Calculate zero-padding values for pools
 * Validation
 * Generate Tensorflow code
 * Update url to contain network params, auto build network based on url params

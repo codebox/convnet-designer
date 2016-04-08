@@ -9,7 +9,10 @@ function buildNetwork() {
             w: w,
             h: h,
             d: d,
-            weights : weights
+            weights : weights,
+            size : function(){
+                return this.w * this.h * this.d;
+            }
         };
     }
 

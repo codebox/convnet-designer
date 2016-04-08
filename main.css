@@ -76,7 +76,7 @@ input[readonly] {
     border-radius: 3px;
     padding: 5px;
     margin: 5px 0;
-    height: 30px;
+    min-height: 30px;
     box-sizing: border-box;
 }
 
@@ -97,4 +97,9 @@ input[readonly] {
 
 #stats pre {
     margin: 4px 0;
+}
+
+.infoBox{
+    text-align: center;
+    margin-top: 4px;
 }
