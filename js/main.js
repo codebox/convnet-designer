@@ -53,6 +53,8 @@ $(function(){
             if ($layerPanel.hasClass('noInputs')) {
                 updateUi();
             }
+
+            $layerPanel.find('input').first().focus();
         }
     }
     function getNumValue($layerPanel, className) {

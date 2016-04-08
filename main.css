@@ -21,32 +21,32 @@ input[readonly] {
     float: right;
 }
 
-.layer.inputLayer{
+.layer.inputLayer, .layer.inputLayer.stateNotEditable input{
     border: 1px solid #5B6F9C;
     background-color: #acc6ee;
 }
 
-.layer.convLayer{
+.layer.convLayer, .layer.convLayer.stateNotEditable input{
     border: 1px solid #679FAD;
     background-color: #acdbee;
 }
 
-.layer.reluLayer{
+.layer.reluLayer, .layer.reluLayer.stateNotEditable input{
     border: 1px solid #8C709E;
     background-color: #d4acee;
 }
 
-.layer.poolLayer{
+.layer.poolLayer, .layer.poolLayer.stateNotEditable input{
     border: 1px solid #AD7856;
     background-color: #F7AD83;
 }
 
-.layer.fcLayer{
+.layer.fcLayer, .layer.fcLayer.stateNotEditable input{
     border: 1px solid #CDD03F;
     background-color: #edeeac;
 }
 
-.layer.outputLayer{
+.layer.outputLayer, .layer.outputLayer.stateNotEditable input{
     border: 1px solid #5AAB50;
     background-color: #b3eeac;
 }
