@@ -95,12 +95,14 @@ $(function(){
     function getNumValue($layerPanel, className) {
         return Number($layerPanel.find('.' + className).val());
     }
+
     $('#addInput').click(buildAddLayerHandler('inputLayer', function($layerPanel, net){
         var h = getNumValue($layerPanel, 'inputHeight'),
             w = getNumValue($layerPanel, 'inputWidth'),
             d = getNumValue($layerPanel, 'inputDepth');
         net.withInputLayer(w, h, d);
     }));
+
     $('#addConv').click(buildAddLayerHandler('convLayer', function($layerPanel, net){
         var s = getNumValue($layerPanel, 'convPatchSize'),
             t = getNumValue($layerPanel, 'convStride'),
@@ -111,37 +113,54 @@ $(function(){
             ph = net.utils.calcZeroPadding(prevLayer.h, s, t),
             infoMsg;
 
-        try {
-            if (pw === undefined) {
-                infoMsg = 'ERROR: the width of the previous layer prohibits the specified patch/stride combination'
-            } else if (ph === undefined) {
-                infoMsg = 'ERROR: the height of the previous layer prohibits the specified patch/stride combination'
-            } else if (pw === 0 && ph === 0) {
-                infoMsg = 'No zero-padding required'
-            } else if (pw === ph) {
-                infoMsg = 'Added zero-padding of size ' + pw;
-            } else {
-                infoMsg = 'Added zero-padding of ' + pw + ' to width and ' + ph + ' to height';
-            }
-        } finally {
-            $layerPanel.find('.infoBox').text(infoMsg);
+        if (pw === undefined) {
+            infoMsg = 'ERROR: the width of the previous layer prohibits the specified patch/stride combination'
+        } else if (ph === undefined) {
+            infoMsg = 'ERROR: the height of the previous layer prohibits the specified patch/stride combination'
+        } else if (pw === 0 && ph === 0) {
+            infoMsg = 'No zero-padding required'
+        } else if (pw === ph) {
+            infoMsg = 'Added zero-padding of size ' + pw;
+        } else {
+            infoMsg = 'Added zero-padding of ' + pw + ' to width and ' + ph + ' to height';
         }
+
+        $layerPanel.find('.infoBox').text(infoMsg);
         net.withConvLayer(s, s, t, t, pw, ph, o);
     }));
+
     $('#addRelu').click(buildAddLayerHandler('reluLayer', function($layerPanel, net){
         net.withRelu();
     }));
+
     $('#addPool').click(buildAddLayerHandler('poolLayer', function($layerPanel, net){
         var s = getNumValue($layerPanel, 'poolSize'),
-            t = getNumValue($layerPanel, 'poolStride');
+            t = getNumValue($layerPanel, 'poolStride'),
+            layers = net.getLayers(),
+            prevLayer = layers[layers.length - 1],
+            pw = net.utils.calcZeroPadding(prevLayer.w, s, t),
+            ph = net.utils.calcZeroPadding(prevLayer.h, s, t),
+            infoMsg;
+
+        if (pw !== 0) {
+            infoMsg = 'ERROR: the width of the previous layer prohibits the specified pool-size/stride combination'
+        } else if (ph !== 0) {
+            infoMsg = 'ERROR: the height of the previous layer prohibits the specified pool-size/stride combination'
+        } else {
+            infoMsg = '';
+        }
+
+        $layerPanel.find('.infoBox').text(infoMsg);
         net.withPooling(s, s, t, t);
     }));
+
     $('#addFc').click(buildAddLayerHandler('fcLayer', function($layerPanel, net){
         var h = getNumValue($layerPanel, 'fcHeight'),
             w = getNumValue($layerPanel, 'fcWidth'),
             d = getNumValue($layerPanel, 'fcDepth');
         net.withFullyConnectedLayer(w, h, d);
     }));
+
     $('#addOutput').click(buildAddLayerHandler('outputLayer', function($layerPanel, net){
         var o = getNumValue($layerPanel, 'outputCount');
         net.withOutputLayer(o);
