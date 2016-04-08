@@ -85,3 +85,16 @@ input[readonly] {
     font-weight: bold;
     width: 100px;
 }
+
+#stats{
+    border: 1px solid grey;
+    border-radius: 3px;
+    font-family: monospace;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin: 5px 0;
+}
+
+#stats pre {
+    margin: 4px 0;
+}

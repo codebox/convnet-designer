@@ -33,7 +33,7 @@ $(function(){
         updateButtonStates();
     }
 
-    function updateDiagram(){
+    function updateDiagram() {
         var net = buildNetwork();
         $('#layers').find('.layer').each(function() {
             var $layerPanel = $(this);
@@ -42,6 +42,7 @@ $(function(){
         });
 
         diagram.drawLayers(net.getLayers());
+        $('#paramCount').text(Number(net.getParameterCount()).toLocaleString());
     }
 
     function buildAddLayerHandler(id, fnUpdateLayer) {

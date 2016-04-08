@@ -74,9 +74,13 @@ var diagram = (function(){
             }
             var maxH = maxProp(layers, 'h'),
                 maxW = maxProp(layers, 'w') * 2,
+                depth = layers.reduce(function(d, layer){
+                    return d + layer.d + LAYER_SPACING;
+                }, 0),
                 hScale = 0.8 * canvas.height / maxH,
                 wScale = 0.8 * canvas.width / maxW,
-                scale = Math.min(hScale, wScale);
+                dScale = 0.8 * canvas.width / depth,
+                scale = Math.min(hScale, wScale, dScale);
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
