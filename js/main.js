@@ -1,8 +1,9 @@
 $(function(){
     var nextLayerId = 1, layerState = {
-        hasInput : false,
-        hasOutput : false
-    };
+            hasInput : false,
+            hasOutput : false
+        },
+        NUMBER_REGEX = /^[1-9][0-9]*$/;
 
     function updateButtonStates() {
 
@@ -55,6 +56,14 @@ $(function(){
             }
 
             $layerPanel.find('input').first().focus();
+
+            $layerPanel.find('input').bind("change paste keyup", function() {
+                var emptyFieldCount = $layerPanel.find('input').filter(function(i, el){
+                    return ! el.value.match(NUMBER_REGEX);
+                }).length;
+
+                $layerPanel.find('.layerOk').prop('disabled', emptyFieldCount > 0);
+            });
         }
     }
     function getNumValue($layerPanel, className) {
