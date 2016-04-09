@@ -81,10 +81,14 @@ $(function(){
                 updateUi();
             });
 
-            $layerPanel.find('.layerDelete').click(function(){
-                $layerPanel.remove();
-                updateUi();
-            });
+            if ($layerPanel.hasClass('noDelete')) {
+                $layerPanel.find('.layerDelete').hide();
+            } else {
+                $layerPanel.find('.layerDelete').click(function(){
+                    $layerPanel.remove();
+                    updateUi();
+                });
+            }
 
             $layerPanel.find('.layerEdit').click(function(){
                 $layerPanel.removeClass('stateNotEditable').addClass('stateEditable');

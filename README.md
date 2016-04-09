@@ -1,17 +1,11 @@
 #  Convolutional Neural Network Designer
 
 ## TODO
+* Write a proper README
 
 ### Function
 * Display/fix memory usage calculation
 * Generate Tensorflow code
-* Prevent deleting Input Layer
-
-### UI
-* Shade colours in diagram
-
-### Code
-* Move colour info out of network.js
 
 ### Maybe
 * Update url to contain network params, auto build network based on url params
