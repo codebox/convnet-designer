@@ -2,6 +2,18 @@ $(function(){
     var nextLayerId = 1,
         NUMBER_REGEX = /^[1-9][0-9]*$/;
 
+    function getColour(layerIndex, shade){
+        function shadeColor2(color, percent) {
+            // Taken from: http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+            var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+            return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+        }
+
+        var LAYER_BASE_COLOURS = ['#acc6ee', '#acdbee', '#d4acee', '#f7ad83', '#edeeac', '#b3eeac'];
+
+        return shadeColor2(LAYER_BASE_COLOURS[layerIndex], shade);
+    }
+
     var updateButtonStates = (function() {
         var addInput  = $('#addInput'),
             addOutput = $('#addOutput'),
@@ -41,11 +53,23 @@ $(function(){
             $layerPanel[0].updateNet($layerPanel, net);
         });
 
-        diagram.drawLayers(net.getLayers());
+        var layers = net.getLayers();
+        $('#layers').find('.layer').each(function(i) {
+            var $layerPanel = $(this),
+                layerType = $layerPanel[0].layerType,
+                layer = layers[i];
+
+            layer.lineColour  = getColour(layerType, -0.5);
+            layer.topColour   = getColour(layerType, 0.8);
+            layer.faceColour  = getColour(layerType, 0.4);
+            layer.rightColour = getColour(layerType, 0);
+        });
+
+        diagram.drawLayers(layers);
         $('#paramCount').text(Number(net.getParameterCount()).toLocaleString());
     }
 
-    function buildAddLayerHandler(id, fnUpdateLayer) {
+    function buildAddLayerHandler(id, fnUpdateLayer, layerType) {
         return function(){
             var $layerPanel = $(_.template($('#' + id).html())({id:nextLayerId}));
             $layerPanel.find('.buttonBox').append(_.template($('#buttons').html())({id:nextLayerId}));
@@ -70,6 +94,7 @@ $(function(){
             });
 
             $layerPanel[0].updateNet = fnUpdateLayer;
+            $layerPanel[0].layerType = layerType;
 
             nextLayerId++;
 
@@ -101,7 +126,7 @@ $(function(){
             w = getNumValue($layerPanel, 'inputWidth'),
             d = getNumValue($layerPanel, 'inputDepth');
         net.withInputLayer(w, h, d);
-    }));
+    }, 0));
 
     $('#addConv').click(buildAddLayerHandler('convLayer', function($layerPanel, net){
         var s = getNumValue($layerPanel, 'convPatchSize'),
@@ -138,11 +163,11 @@ $(function(){
         } finally {
             $layerPanel.find('.infoBox').text(infoMsg);
         }
-    }));
+    }, 1));
 
     $('#addRelu').click(buildAddLayerHandler('reluLayer', function($layerPanel, net){
         net.withRelu();
-    }));
+    }, 2));
 
     $('#addPool').click(buildAddLayerHandler('poolLayer', function($layerPanel, net){
         var s = getNumValue($layerPanel, 'poolSize'),
@@ -169,17 +194,17 @@ $(function(){
             $layerPanel.find('.infoBox').text(infoMsg);
         }
 
-    }));
+    }, 3));
 
     $('#addFc').click(buildAddLayerHandler('fcLayer', function($layerPanel, net){
         var h = getNumValue($layerPanel, 'fcHeight'),
             w = getNumValue($layerPanel, 'fcWidth'),
             d = getNumValue($layerPanel, 'fcDepth');
         net.withFullyConnectedLayer(w, h, d);
-    }));
+    }, 4));
 
     $('#addOutput').click(buildAddLayerHandler('outputLayer', function($layerPanel, net){
         var o = getNumValue($layerPanel, 'outputCount');
         net.withOutputLayer(o);
-    }));
+    }, 5));
 });
