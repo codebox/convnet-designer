@@ -4,8 +4,7 @@ var diagram = (function(){
     }
     var canvas = document.getElementById('canvas'),
         ctx    = canvas.getContext('2d'),
-        H_FRACTION = 0.9,
-        W_FRACTION = 0.6,
+        LAYER_SPACING_FACTOR = 0.2,
         ANGLE = Math.PI / 4; // 45 degrees
 
     function calculateLayerCoords(layer, scale) {
@@ -81,7 +80,7 @@ var diagram = (function(){
                 maxX = Math.max(maxX, coords.x0 + xOffset, coords.x1 + xOffset, coords.x2 + xOffset, coords.x3 + xOffset);
                 minY = Math.min(minY, coords.y0, coords.y1, coords.y2, coords.y3);
                 maxY = Math.max(maxY, coords.y0, coords.y1, coords.y2, coords.y3);
-                xOffset += layer.h/4 + layer.d;
+                xOffset += layer.h * LAYER_SPACING_FACTOR + layer.d;
             });
             var xScale = 0.9 * canvas.width / (maxX - minX);
             var yScale = 0.9 * canvas.height / (maxY - minY);
@@ -92,7 +91,7 @@ var diagram = (function(){
             xOffset = canvas.width * 0.05 + (canvas.width - scale * (maxX - minX)) / 2;
             layers.forEach(function(layer, i){
                 drawLayer(layer, xOffset, scale);
-                xOffset += (layer.h/4 + layer.d) * scale;
+                xOffset += (layer.h * LAYER_SPACING_FACTOR + layer.d) * scale;
             });
         }
     };

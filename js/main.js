@@ -40,11 +40,6 @@ $(function(){
         };
     }());
 
-    function updateUi() {
-        updateDiagram();
-        updateButtonStates();
-    }
-
     function updateDiagram() {
         var net = buildNetwork();
         $('#layers').find('.layer').each(function() {
@@ -67,6 +62,11 @@ $(function(){
 
         diagram.drawLayers(layers);
         $('#paramCount').text(Number(net.getParameterCount()).toLocaleString());
+    }
+
+    function updateUi() {
+        updateDiagram();
+        updateButtonStates();
     }
 
     function buildAddLayerHandler(id, fnUpdateLayer, layerType) {
@@ -133,17 +133,31 @@ $(function(){
     }, 0));
 
     $('#addConv').click(buildAddLayerHandler('convLayer', function($layerPanel, net){
-        var s = getNumValue($layerPanel, 'convPatchSize'),
-            t = getNumValue($layerPanel, 'convStride'),
-            o = getNumValue($layerPanel, 'convOutputs'),
+        var patch   = getNumValue($layerPanel, 'convPatchSize'),
+            stride  = getNumValue($layerPanel, 'convStride'),
+            outputs = getNumValue($layerPanel, 'convOutputs'),
             pwInput = $layerPanel.find('.convWidthPad').val(),
             phInput = $layerPanel.find('.convHeightPad').val(),
             prevLayer = net.getLastLayer(),
-            pw = pwInput ? Number(pwInput) : net.utils.calcZeroPadding(prevLayer.w, s, t),
-            ph = phInput ? Number(phInput) : net.utils.calcZeroPadding(prevLayer.h, s, t),
-            infoMsg, thisLayer;
+            pw, ph,infoMsg, thisLayer;
 
         $layerPanel.find('.convWidthPad, .convHeightPad').val('');
+
+        if (pwInput) {
+            pw = Number(pwInput);
+        } else if (stride === 1) {
+            pw = Math.floor(patch/2);
+        } else {
+            pw = net.utils.calcZeroPadding(prevLayer.w, patch, stride)
+        }
+
+        if (phInput) {
+            ph = Number(phInput);
+        } else if (stride === 1) {
+            ph = Math.floor(patch/2);
+        } else {
+            ph = net.utils.calcZeroPadding(prevLayer.h, patch, stride)
+        }
 
         try {
             if (pw === undefined) {
@@ -155,7 +169,7 @@ $(function(){
                 $layerPanel.find('.convHeightPad').val(ph);
             }
 
-            net.withConvLayer(s, s, t, t, pw, ph, o);
+            net.withConvLayer(patch, patch, stride, stride, pw, ph, outputs);
 
             thisLayer = net.getLastLayer();
 
