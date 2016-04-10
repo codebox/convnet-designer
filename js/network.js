@@ -4,20 +4,22 @@ function buildNetwork() {
     var layers = [],
         BYTES_PER_VALUE = 4;
 
-    function buildLayer(w, h, d, weights) {
+    function buildLayer(type, w, h, d, weights, structure) {
         return {
             w: w,
             h: h,
             d: d,
+            type: type,
             weights : weights,
+            structure : structure,
             size : function(){
                 return this.w * this.h * this.d;
             }
         };
     }
 
-    function addLayer(w, h, d, weights) {
-        var layer = buildLayer(w, h, d, weights);
+    function addLayer(type, w, h, d, weights, structure) {
+        var layer = buildLayer(type, w, h, d, weights, structure);
 
         layers.push(layer);
     }
@@ -35,7 +37,7 @@ function buildNetwork() {
             if (layers.length) {
                 throw new Error('Input layer must be the first layer to be added');
             }
-            addLayer(w, h, d, 0);
+            addLayer(0, w, h, d, 0);
             return this;
         },
 
@@ -55,7 +57,15 @@ function buildNetwork() {
                 throw new Error(["Bad strideHeight value:", strideHeight, "is not a factor of", hn].join(' '));
             }
 
-            addLayer(w, h, d, previousLayer.d * patchWidth * patchHeight * outputCount);
+            addLayer(1, w, h, d, previousLayer.d * patchWidth * patchHeight * outputCount, {
+                patchWidth        : patchWidth,
+                patchHeight       : patchHeight,
+                strideWidth       : strideWidth,
+                strideHeight      : strideHeight,
+                zeroPaddingWidth  : zeroPaddingWidth,
+                zeroPaddingHeight : zeroPaddingHeight,
+                outputCount       : outputCount
+            });
 
             return this;
         },
@@ -63,7 +73,7 @@ function buildNetwork() {
         withRelu : function(){
             var previousLayer = getPreviousLayer();
 
-            addLayer(previousLayer.w, previousLayer.h, previousLayer.d, 0);
+            addLayer(2, previousLayer.w, previousLayer.h, previousLayer.d, 0);
 
             return this;
         },
@@ -83,7 +93,7 @@ function buildNetwork() {
                 throw new Error(["Bad strideHeight value:", strideHeight, "must be a factor of", hn].join(' '));
             }
 
-            addLayer(w, h, previousLayer.d, 0);
+            addLayer(3, w, h, previousLayer.d, 0);
 
             return this;
         },
@@ -91,7 +101,7 @@ function buildNetwork() {
         withFullyConnectedLayer : function(w, h, d) {
             var previousLayer = getPreviousLayer();
 
-            addLayer(w, h, d, previousLayer.w * previousLayer.h * previousLayer.d * w * h * d);
+            addLayer(4, w, h, d, previousLayer.w * previousLayer.h * previousLayer.d * w * h * d);
 
             return this;
         },
@@ -99,7 +109,7 @@ function buildNetwork() {
         withOutputLayer : function(classCount) {
             var previousLayer = getPreviousLayer();
 
-            addLayer(1, 1, classCount, previousLayer.w * previousLayer.h * previousLayer.d * classCount);
+            addLayer(5, 1, 1, classCount, previousLayer.w * previousLayer.h * previousLayer.d * classCount);
 
             return this;
         },
@@ -147,9 +157,6 @@ function buildNetwork() {
                 } else {
                     return (n * (stride - 1) / 2) % stride;
                 }
-            },
-            checkZeroPadding : function(inputSize, patchSize, stride, padding) {
-                return
             }
         }
     };

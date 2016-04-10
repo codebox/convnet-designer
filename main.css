@@ -130,3 +130,12 @@ input[readonly] {
     justify-content: center;
     margin-top: 4px;
 }
+
+#code{
+    padding: 4px;
+    font-family: monospace;
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid grey;
+    box-sizing: border-box;
+}

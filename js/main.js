@@ -40,7 +40,7 @@ $(function(){
         };
     }());
 
-    function updateDiagram() {
+    function updateDiagramAndCode() {
         var net = buildNetwork();
         $('#layers').find('.layer').each(function() {
             var $layerPanel = $(this);
@@ -62,10 +62,13 @@ $(function(){
 
         diagram.drawLayers(layers);
         $('#paramCount').text(Number(net.getParameterCount()).toLocaleString());
+
+        var code = makeCode(layers);
+        $('#code').text(code);
     }
 
     function updateUi() {
-        updateDiagram();
+        updateDiagramAndCode();
         updateButtonStates();
     }
 
@@ -104,7 +107,7 @@ $(function(){
 
             if ($layerPanel.find('input').length === 0) {
                 $layerPanel.find('.layerOk').hide();
-                updateDiagram();
+                updateDiagramAndCode();
             } else {
                 $layerPanel.addClass('stateEditable');
                 updateButtonStates();
