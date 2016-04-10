@@ -4,8 +4,8 @@
 * Write a proper README
 
 ### Function
+* Test/refine generated Tensorflow code
 * Display/fix memory usage calculation
-* Generate Tensorflow code
 
 ### Maybe
 * Update url to contain network params, auto build network based on url params
