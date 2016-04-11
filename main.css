@@ -1,6 +1,38 @@
+html{
+    background-color: #F2F2F2;
+}
+body{
+    background-color: #fafafa;
+    font-family: sans-serif;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
+}
+h1{
+    margin: 5px 0;
+}
+header{
+    font-size: small;
+    padding-bottom: 20px;
+}
+footer{
+    text-align: center;
+    font-size: small;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+a, a:visited{
+    color: #2488D9;
+}
 #container{
     box-sizing: border-box;
-    width: 600px;
 }
 canvas {
     border: 1px solid black;
@@ -93,10 +125,11 @@ input[readonly] {
 #addButtons button{
     flex: 1;
     margin: 2px 5px;
+    border: 1px solid grey;
+    border-radius: 3px;
 }
 .layer{
     font-size: 12px;
-    font-family: sans-serif;
     border: 1px solid grey;
     border-radius: 3px;
     padding: 5px;
@@ -138,4 +171,7 @@ input[readonly] {
     overflow-y: scroll;
     border: 1px solid grey;
     box-sizing: border-box;
+}
+#code, #stats, canvas, #addButtons button {
+    background-color: white;
 }
