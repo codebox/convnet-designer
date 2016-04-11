@@ -91,10 +91,17 @@ $(function(){
         updateButtonStates();
     }
 
+    function template(text, o) {
+        for(key in o){
+            text = text.replace(new RegExp('\\{' + key + '\\}', 'g'), o[key])
+        }
+        return text;
+    }
+
     function buildAddLayerHandler(id, fnUpdateLayer, layerType) {
         return function(){
-            var $layerPanel = $(_.template($('#' + id).html())({id:nextLayerId}));
-            $layerPanel.find('.buttonBox').append(_.template($('#buttons').html())({id:nextLayerId}));
+            var $layerPanel = $(template($('#' + id).html(), {id:nextLayerId}));
+            $layerPanel.find('.buttonBox').append(template($('#buttons').html(), {id:nextLayerId}));
             $('#layers').append($layerPanel);
 
             $layerPanel.find('.layerOk').click(function(){

@@ -52,16 +52,16 @@
             <div class="inputBoxes">
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="inputLayerWidth<%= id %>">Width</label>
-                        <input class="inputWidth" type="number" id="inputLayerWidth<%= id %>" min="1"/>
+                        <label for="inputLayerWidth{id}">Width</label>
+                        <input class="inputWidth" type="number" id="inputLayerWidth{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="inputLayerHeight<%= id %>">Height</label>
-                        <input class="inputHeight" type="number" id="inputLayerHeight<%= id %>" min="1"/>
+                        <label for="inputLayerHeight{id}">Height</label>
+                        <input class="inputHeight" type="number" id="inputLayerHeight{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="inputLayerDepth<%= id %>">Depth</label>
-                        <input class="inputDepth" type="number" id="inputLayerDepth<%= id %>" min="1"/>
+                        <label for="inputLayerDepth{id}">Depth</label>
+                        <input class="inputDepth" type="number" id="inputLayerDepth{id}" min="1"/>
                     </span>
                 </div>
             </div>
@@ -75,26 +75,26 @@
             <div class="inputBoxes">
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="convLayerPatchSize<%= id %>">Patch</label>
-                        <input class="convPatchSize" type="number" id="convLayerPatchSize<%= id %>" min="1"/>
+                        <label for="convLayerPatchSize{id}">Patch</label>
+                        <input class="convPatchSize" type="number" id="convLayerPatchSize{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="convLayerStride<%= id %>">Stride</label>
-                        <input class="convStride" type="number" id="convLayerStride<%= id %>" min="1"/>
+                        <label for="convLayerStride{id}">Stride</label>
+                        <input class="convStride" type="number" id="convLayerStride{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="convLayerOutputs<%= id %>">Outputs</label>
-                        <input class="convOutputs" type="number" id="convLayerOutputs<%= id %>" min="1"/>
+                        <label for="convLayerOutputs{id}">Outputs</label>
+                        <input class="convOutputs" type="number" id="convLayerOutputs{id}" min="1"/>
                     </span>
                 </div>
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="convLayerWidthPad<%= id %>">Width Pad</label>
-                        <input class="convWidthPad optional" type="number" id="convLayerWidthPad<%= id %>" min="1" placeholder="<Auto>"/>
+                        <label for="convLayerWidthPad{id}">Width Pad</label>
+                        <input class="convWidthPad optional" type="number" id="convLayerWidthPad{id}" min="1" placeholder="<Auto>"/>
                     </span>
                     <span class="inputBox">
-                        <label for="convLayerHeightPad<%= id %>">Height Pad</label>
-                        <input class="convHeightPad optional" type="number" id="convLayerHeightPad<%= id %>" min="1" placeholder="<Auto>"/>
+                        <label for="convLayerHeightPad{id}">Height Pad</label>
+                        <input class="convHeightPad optional" type="number" id="convLayerHeightPad{id}" min="1" placeholder="<Auto>"/>
                     </span>
                 </div>
 
@@ -118,12 +118,12 @@
             <div class="inputBoxes">
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="poolLayerSize<%= id %>">Size</label>
-                        <input class="poolSize" type="number" id="poolLayerSize<%= id %>" min="1"/>
+                        <label for="poolLayerSize{id}">Size</label>
+                        <input class="poolSize" type="number" id="poolLayerSize{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="poolLayerStride<%= id %>">Stride</label>
-                        <input class="poolStride" type="number" id="poolLayerStride<%= id %>" min="1"/>
+                        <label for="poolLayerStride{id}">Stride</label>
+                        <input class="poolStride" type="number" id="poolLayerStride{id}" min="1"/>
                     </span>
                 </div>
                 <div class="infoBox inputBoxesRow"></div>
@@ -138,16 +138,16 @@
             <div class="inputBoxes">
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="fcLayerWidth<%= id %>">Width</label>
-                        <input class="fcWidth" type="number" id="fcLayerWidth<%= id %>" min="1"/>
+                        <label for="fcLayerWidth{id}">Width</label>
+                        <input class="fcWidth" type="number" id="fcLayerWidth{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="fcLayerHeight<%= id %>">Height</label>
-                        <input class="fcHeight" type="number" id="fcLayerHeight<%= id %>" min="1"/>
+                        <label for="fcLayerHeight{id}">Height</label>
+                        <input class="fcHeight" type="number" id="fcLayerHeight{id}" min="1"/>
                     </span>
                     <span class="inputBox">
-                        <label for="fcLayerDepth<%= id %>">Depth</label>
-                        <input class="fcDepth" type="number" id="fcLayerDepth<%= id %>" min="1"/>
+                        <label for="fcLayerDepth{id}">Depth</label>
+                        <input class="fcDepth" type="number" id="fcLayerDepth{id}" min="1"/>
                     </span>
                 </div>
             </div>
@@ -161,8 +161,8 @@
             <div class="inputBoxes">
                 <div class="inputBoxesRow">
                     <span class="inputBox">
-                        <label for="outputLayerCount<%= id %>">Count</label>
-                        <input class="outputCount" type="number" id="outputLayerCount<%= id %>" min="1"/>
+                        <label for="outputLayerCount{id}">Count</label>
+                        <input class="outputCount" type="number" id="outputLayerCount{id}" min="1"/>
                     </span>
                 </div>
             </div>
@@ -171,16 +171,15 @@
     </script>
 
     <script type="text/html" id="buttons">
-        <button class="layerOk"     id="layerOk<%= id %>" disabled>OK</button>
-        <button class="layerEdit"   id="layerEdit<%= id %>">Edit</button>
-        <button class="layerDelete" id="layerDelete<%= id %>">Delete</button>
+        <button class="layerOk"     id="layerOk{id}" disabled>OK</button>
+        <button class="layerEdit"   id="layerEdit{id}">Edit</button>
+        <button class="layerDelete" id="layerDelete{id}">Delete</button>
     </script>
 
     <script src="js/network.js"></script>
     <script src="js/diagram.js"></script>
     <script src="js/tensorflow.js"></script>
     <script src="js/jquery.js"></script>
-    <script src="js/underscore.js"></script>
     <script src="js/main.js"></script>
 
 </body>
