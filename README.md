@@ -6,14 +6,15 @@ The utility is [available to use online](https://codebox.net/convnetdesigner/mai
 
 The utility performs the following functions:
 * Visualises the network, showing the relative layer sizes and helping to ensure that the overal 'shape' of the network is correct:
-![Convnet Designer visualising a network](//codebox.net/graphics/convnet/convnet_designer2.png)
+![Convnet Designer visualising a network](https://codebox.net/graphics/convnet/convnet_designer2.png)
 * Computes the total number of parameters required by the network, allowing the computational complexity of different designs to be compared
 * Estimates the amount of memory required by the network
 * Validates patch size and stride values for convolutional layers, automatically applying zero-padding if required
-![Convnet Designer layer inputs](//codebox.net/graphics/convnet/convnet_designer1.png)
+![Convnet Designer layer inputs](https://codebox.net/graphics/convnet/convnet_designer1.png)
 * Validates pool size and stride values for pooling layers
 * Generates the Tensorflow code required to construct the network (example code below)
 
+<pre>
     x0 = tf.placeholder(tf.float32, shape=[None, 49152])
     
     x1 = tf.reshape(x0, [-1,128,128,3])
@@ -41,3 +42,4 @@ The utility performs the following functions:
     x16 = tf.Variable(tf.truncated_normal([1024, 2], stddev=0.1))
     x17 = tf.reshape(x15, [-1, 1024])
     y_conv = tf.matmul(x17, x16)
+</pre>
