@@ -63,6 +63,25 @@ $(function(){
         diagram.drawLayers(layers);
         $('#paramCount').text(Number(net.getParameterCount()).toLocaleString());
 
+        function formatMemoryAmount(bytes) {
+            function format(val, unit) {
+                return Math.floor(val) + ' ' + unit;
+            }
+            var K = 1024;
+            console.log(bytes)
+            if (bytes < K) {
+                return format(bytes, 'byte');
+            }
+            if (bytes < K * K) {
+                return format(bytes / K, 'KB');
+            }
+            if (bytes < K * K * K) {
+                return format(bytes / (K * K), 'MB');
+            }
+            return format(bytes /(K * K * K), 'GB');
+        }
+        $('#memUsage').text(formatMemoryAmount(net.getMemoryRequirement()));
+
         var code = makeCode(layers);
         $('#code').text(code);
     }

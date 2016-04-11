@@ -93,7 +93,12 @@ function buildNetwork() {
                 throw new Error(["Bad strideHeight value:", strideHeight, "must be a factor of", hn].join(' '));
             }
 
-            addLayer(3, w, h, previousLayer.d, 0);
+            addLayer(3, w, h, previousLayer.d, 0, {
+                poolWidth    : poolWidth,
+                poolHeight   : poolHeight,
+                strideWidth  : strideWidth,
+                strideHeight : strideHeight
+            });
 
             return this;
         },

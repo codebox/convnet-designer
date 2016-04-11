@@ -71,19 +71,22 @@ function makeCode(layers) {
         ];
     }
 
-    function poolLayerCoder(layer){
+    function poolLayerCoder(layer, prevLayer){
         var prevName = outputName.get(),
             name1 = outputName.getNew();
 
-        return format("{0} = tf.nn.max_pool({1}, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')",
-            name1, prevName);
+        return format("{0} = tf.nn.max_pool({1}, ksize=[1, {2}, {3}, 1], strides=[1, {4}, {5}, 1], padding='SAME')",
+            name1, prevName,
+            layer.structure.poolHeight, layer.structure.poolWidth,
+            layer.structure.strideHeight, layer.structure.strideWidth
+        );
     }
 
-    function fcLayerCoder(layer, prevLayer){
+    function fcLayerCoder(layer, prevLayer, outputVarName){
         var prevName = outputName.get(),
             name1 = outputName.getNew(),
             name2 = outputName.getNew(),
-            name3 = outputName.getNew();
+            name3 = outputVarName || outputName.getNew();
 
         return [
             format("{0} = tf.Variable(tf.truncated_normal([{1}, {2}], stddev=0.1))",
@@ -98,7 +101,7 @@ function makeCode(layers) {
     }
 
     function outputLayerCoder(layer, prevLayer){
-        return fcLayerCoder(layer, prevLayer);
+        return fcLayerCoder(layer, prevLayer, 'y_conv');
     }
 
     var prevLayer;
